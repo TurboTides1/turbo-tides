@@ -59,7 +59,9 @@ src/
 │       ├── availability/route.ts     # CRUD availability windows
 │       ├── slots/route.ts            # GET available time slots
 │       ├── book/route.ts             # POST create booking
-│       └── cancel/route.ts           # POST cancel booking
+│       ├── cancel/route.ts            # POST cancel booking
+│       └── sms/
+│           └── incoming/route.ts     # Twilio webhook — forward customer replies to instructor
 ├── lib/
 │   ├── google-calendar.ts            # Calendar API wrapper
 │   ├── twilio.ts                     # SMS helper
@@ -67,7 +69,7 @@ src/
 │   ├── db/schema.ts                  # availability_windows table
 │   ├── auth.ts                       # Auth.js exports
 │   ├── auth.config.ts                # Credentials provider config
-│   ├── instructors.ts                # Static config (names, bios, calendar IDs)
+│   ├── instructors.ts                # Static config (names, bios, calendar IDs, phone numbers)
 │   └── slots.ts                      # Slot generation algorithm
 ├── components/
 │   ├── layout/                       # Header, Footer
@@ -117,6 +119,10 @@ TURSO_AUTH_TOKEN=<token>
 TWILIO_ACCOUNT_SID=AC...
 TWILIO_AUTH_TOKEN=...
 TWILIO_PHONE_NUMBER=+1...
+
+# Instructor Phone Numbers (for SMS reply forwarding)
+INSTRUCTOR_PHONE_KAYLA=+1...
+INSTRUCTOR_PHONE_JACK=+1...
 
 # Site
 NEXT_PUBLIC_SITE_URL=https://turbotides.us
@@ -173,11 +179,19 @@ NEXT_PUBLIC_SITE_URL=https://turbotides.us
 - Calendar event: summary="Swim Lesson - ClientName", description has client name + phone
 - Confirmation page with details and $25 payment reminder
 
-### Milestone 6: Cancellation & Notifications
+### Milestone 6: Cancellation, Notifications & SMS Reply Forwarding
 - Admin schedule page: upcoming 14 days of lessons, filterable by instructor
 - Each lesson shows date, time, client name/phone
 - Cancel button with confirmation dialog
 - POST /api/cancel: deletes Calendar event, sends SMS to client with apology and re-booking link
+- **SMS Reply Forwarding:**
+  - `POST /api/sms/incoming` — Twilio webhook endpoint
+  - When a customer texts back to the Twilio number, Twilio POSTs to this endpoint with the sender's phone number and message body
+  - The app looks up the sender's phone number against upcoming Google Calendar events (both instructors) to find which instructor has a lesson with that customer
+  - Forwards the message via SMS to that instructor's personal phone: "Message from [ClientName]: [their message]"
+  - If the phone number doesn't match any upcoming booking, forwards to David's phone as a fallback
+  - Returns TwiML `<Response/>` (empty) so Twilio doesn't auto-reply
+  - **Twilio setup:** In the Twilio console, set the "When a message comes in" webhook URL to `https://turbotides.us/api/sms/incoming` (HTTP POST)
 
 ### Milestone 7: Polish & Launch
 - Loading states (skeleton loaders) and error boundaries
