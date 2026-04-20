@@ -150,10 +150,10 @@ export default function PrivacyPolicy() {
             Questions about this policy, or requests to access or delete your
             information, can be sent to{" "}
             <a
-              href="mailto:hello@turbotides.us"
+              href="mailto:dave@arnesonhomes.com"
               className="text-turquoise hover:underline"
             >
-              hello@turbotides.us
+              dave@arnesonhomes.com
             </a>
             .
           </p>
