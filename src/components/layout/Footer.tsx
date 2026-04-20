@@ -39,6 +39,11 @@ export default function Footer() {
                   Book a Lesson
                 </Link>
               </li>
+              <li>
+                <Link href="/privacy" className="hover:text-turquoise transition-colors">
+                  Privacy Policy
+                </Link>
+              </li>
             </ul>
           </div>
 
