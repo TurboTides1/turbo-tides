@@ -13,3 +13,18 @@ export const availabilityWindows = sqliteTable("availability_windows", {
 
 export type AvailabilityWindow = typeof availabilityWindows.$inferSelect;
 export type NewAvailabilityWindow = typeof availabilityWindows.$inferInsert;
+
+// Editable overlay on the hardcoded instructor list. Any null field falls
+// back to the compiled-in default; non-null values override.
+export const instructorProfiles = sqliteTable("instructor_profiles", {
+  slug: text("slug").primaryKey(), // "kayla" or "jack"
+  name: text("name"),
+  bio: text("bio"),
+  specialties: text("specialties"), // newline-separated list
+  photoUrl: text("photo_url"),
+  videoUrl: text("video_url"),
+  updatedAt: integer("updated_at", { mode: "timestamp" }),
+});
+
+export type InstructorProfile = typeof instructorProfiles.$inferSelect;
+export type NewInstructorProfile = typeof instructorProfiles.$inferInsert;

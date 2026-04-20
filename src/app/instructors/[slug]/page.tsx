@@ -1,6 +1,8 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
-import { instructors, getInstructor } from "@/lib/instructors";
+import Image from "next/image";
+import { instructors } from "@/lib/instructors";
+import { getMergedInstructor } from "@/lib/instructor-profiles";
 import type { Metadata } from "next";
 
 interface Props {
@@ -11,9 +13,11 @@ export async function generateStaticParams() {
   return instructors.map((i) => ({ slug: i.slug }));
 }
 
+export const dynamic = "force-dynamic";
+
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
-  const instructor = getInstructor(slug);
+  const instructor = await getMergedInstructor(slug);
   if (!instructor) return {};
 
   return {
@@ -22,13 +26,14 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     openGraph: {
       title: `${instructor.name} — Turbo Tides Swim Instructor`,
       description: `Private swim lessons with ${instructor.name}. Specialties: ${instructor.specialties.join(", ")}.`,
+      images: instructor.photoUrl ? [instructor.photoUrl] : undefined,
     },
   };
 }
 
 export default async function InstructorPage({ params }: Props) {
   const { slug } = await params;
-  const instructor = getInstructor(slug);
+  const instructor = await getMergedInstructor(slug);
   if (!instructor) notFound();
 
   return (
@@ -43,9 +48,20 @@ export default async function InstructorPage({ params }: Props) {
         </Link>
 
         <div className="mt-8 text-center">
-          {/* Avatar */}
-          <div className="w-32 h-32 bg-gradient-to-br from-turquoise to-blue rounded-full flex items-center justify-center text-white text-5xl font-heading font-bold mx-auto mb-6">
-            {instructor.name[0]}
+          {/* Avatar or photo */}
+          <div className="w-32 h-32 bg-gradient-to-br from-turquoise to-blue rounded-full flex items-center justify-center text-white text-5xl font-heading font-bold mx-auto mb-6 overflow-hidden relative">
+            {instructor.photoUrl ? (
+              <Image
+                src={instructor.photoUrl}
+                alt={instructor.name}
+                fill
+                sizes="128px"
+                className="object-cover"
+                priority
+              />
+            ) : (
+              instructor.name[0]
+            )}
           </div>
 
           <h1 className="text-4xl font-heading font-bold text-navy mb-4">
@@ -55,6 +71,18 @@ export default async function InstructorPage({ params }: Props) {
           <p className="text-lg text-gray-600 leading-relaxed mb-8 max-w-xl mx-auto">
             {instructor.bio}
           </p>
+
+          {/* Intro video */}
+          {instructor.videoUrl && (
+            <div className="mb-10">
+              <video
+                src={instructor.videoUrl}
+                controls
+                playsInline
+                className="w-full max-w-xl mx-auto rounded-2xl bg-black shadow-sm"
+              />
+            </div>
+          )}
 
           {/* Specialties */}
           <div className="mb-10">

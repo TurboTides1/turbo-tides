@@ -5,6 +5,8 @@ import InstructorCards from "@/components/landing/InstructorCards";
 import Location from "@/components/landing/Location";
 import CTA from "@/components/landing/CTA";
 
+export const dynamic = "force-dynamic";
+
 export default function Home() {
   return (
     <>

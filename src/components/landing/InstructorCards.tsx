@@ -1,7 +1,10 @@
 import Link from "next/link";
-import { instructors } from "@/lib/instructors";
+import Image from "next/image";
+import { getAllMergedInstructors } from "@/lib/instructor-profiles";
 
-export default function InstructorCards() {
+export default async function InstructorCards() {
+  const list = await getAllMergedInstructors();
+
   return (
     <section id="instructors" className="py-20 bg-white">
       <div className="max-w-6xl mx-auto px-4 sm:px-6">
@@ -15,14 +18,24 @@ export default function InstructorCards() {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
-          {instructors.map((instructor) => (
+          {list.map((instructor) => (
             <div
               key={instructor.slug}
               className="bg-gradient-to-br from-gray-50 to-white rounded-2xl p-8 border border-gray-100 hover:border-turquoise/30 transition-colors"
             >
-              {/* Placeholder avatar */}
-              <div className="w-24 h-24 bg-gradient-to-br from-turquoise to-blue rounded-full flex items-center justify-center text-white text-3xl font-heading font-bold mb-5 mx-auto">
-                {instructor.name[0]}
+              {/* Avatar or photo */}
+              <div className="w-24 h-24 rounded-full overflow-hidden bg-gradient-to-br from-turquoise to-blue flex items-center justify-center text-white text-3xl font-heading font-bold mb-5 mx-auto relative">
+                {instructor.photoUrl ? (
+                  <Image
+                    src={instructor.photoUrl}
+                    alt={instructor.name}
+                    fill
+                    sizes="96px"
+                    className="object-cover"
+                  />
+                ) : (
+                  instructor.name[0]
+                )}
               </div>
 
               <div className="text-center">
