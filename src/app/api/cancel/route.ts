@@ -17,7 +17,7 @@ export async function POST(request: NextRequest) {
   }
 
   const body = await request.json();
-  const { instructor, eventId, clientName, clientPhone, date, time } = body;
+  const { instructor, eventId, clientName, clientPhone, date, time, smsConsent } = body;
 
   if (!instructor || !eventId) {
     return NextResponse.json(
@@ -37,8 +37,10 @@ export async function POST(request: NextRequest) {
     // Delete the calendar event
     await deleteEvent(instructor, eventId);
 
-    // Send cancellation SMS if we have the client's phone
-    if (clientPhone && clientName && date && time) {
+    // Only send cancellation SMS if the client opted in at booking time.
+    // Carrier rules require us to honor the consent state recorded with the
+    // booking - we can't text customers who didn't opt in.
+    if (smsConsent === true && clientPhone && clientName && date && time) {
       const inst = getInstructor(instructor)!;
       await sendCancellationNotice(
         clientPhone,

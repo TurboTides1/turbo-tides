@@ -14,7 +14,7 @@ export default function PrivacyPolicy() {
         Privacy Policy
       </h1>
       <p className="text-sm text-gray-500 mb-10">
-        Last updated: April 20, 2026
+        Last updated: May 12, 2026
       </p>
 
       <div className="prose prose-gray max-w-none space-y-8">
@@ -84,18 +84,31 @@ export default function PrivacyPolicy() {
             marketing purposes.
           </p>
           <p className="text-gray-700 leading-relaxed mt-4">
-            <strong>Consent:</strong> By providing your phone number and
-            checking the SMS consent box on the booking form, you agree to
-            receive the transactional text messages described above. Consent
-            is not a condition of purchase — you can contact us directly to
-            book without using the online form if you prefer not to receive
-            SMS.
+            <strong>Consent is optional.</strong> You will only receive text
+            messages if you separately check the SMS consent box on the
+            booking form. <strong>Consent is not a condition of any
+            purchase.</strong> You can complete a booking without checking
+            the box, in which case we will not text you about your booking.
+            Your booking is not affected by your SMS choice.
           </p>
           <p className="text-gray-700 leading-relaxed mt-4">
-            <strong>Opting out:</strong> You can opt out at any time by
+            <strong>Scope of consent.</strong> By checking the SMS consent box
+            you only agree to receive the transactional text messages
+            described above. Your consent for SMS is separate from any other
+            agreement you may have with Turbo Tides, including this Privacy
+            Policy itself. Checking the SMS box does not constitute agreement
+            to any other terms.
+          </p>
+          <p className="text-gray-700 leading-relaxed mt-4">
+            <strong>Opting out.</strong> You can opt out at any time by
             replying <strong>STOP</strong> to any text message from us. After
             you reply STOP, you will not receive further text messages. Reply{" "}
             <strong>HELP</strong> for assistance.
+          </p>
+          <p className="text-gray-700 leading-relaxed mt-4">
+            <strong>No sharing of opt-in data.</strong> We do not share
+            mobile-opt-in consent or phone numbers with third parties or
+            affiliates for marketing purposes.
           </p>
         </section>
 

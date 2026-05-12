@@ -10,7 +10,7 @@ interface Props {
   time: string;
   endTime: string;
   submitting: boolean;
-  onSubmit: (name: string, phone: string) => void;
+  onSubmit: (name: string, phone: string, smsConsent: boolean) => void;
 }
 
 function formatTime12(time24: string): string {
@@ -40,7 +40,7 @@ export default function BookingForm({
 
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
-    onSubmit(name.trim(), phone.trim());
+    onSubmit(name.trim(), phone.trim(), smsConsent);
   }
 
   return (
@@ -97,28 +97,36 @@ export default function BookingForm({
             type="checkbox"
             checked={smsConsent}
             onChange={(e) => setSmsConsent(e.target.checked)}
-            required
             className="mt-1 h-4 w-4 rounded border-gray-300 text-turquoise focus:ring-turquoise"
           />
           <label htmlFor="sms-consent" className="text-xs text-gray-600 leading-relaxed">
-            I agree to receive text messages from Turbo Tides about my swim
-            lesson bookings, including confirmations and cancellation notices.
-            Message frequency is low; message and data rates may apply. Reply
-            STOP to opt out. See our{" "}
-            <Link href="/privacy" className="text-turquoise hover:underline" target="_blank">
-              Privacy Policy
-            </Link>
-            .
+            <span className="font-medium text-gray-700">Optional:</span> I agree
+            to receive transactional text messages from Turbo Tides about my
+            swim lesson bookings (booking confirmation and cancellation
+            notices only, roughly one message per booking).{" "}
+            <span className="font-medium text-gray-700">
+              Consent is not a condition of any purchase.
+            </span>{" "}
+            Message and data rates may apply. Reply STOP to opt out, HELP for
+            help.
           </label>
         </div>
 
         <button
           type="submit"
-          disabled={submitting || !smsConsent}
+          disabled={submitting}
           className="w-full bg-turquoise hover:bg-turquoise-dark text-white font-bold py-3 rounded-lg text-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
         >
           {submitting ? "Booking..." : "Confirm Booking"}
         </button>
+
+        <p className="text-xs text-gray-400 text-center">
+          By booking, you confirm the details above. See our{" "}
+          <Link href="/privacy" className="text-turquoise hover:underline" target="_blank">
+            Privacy Policy
+          </Link>{" "}
+          for how we handle your information.
+        </p>
       </form>
     </div>
   );

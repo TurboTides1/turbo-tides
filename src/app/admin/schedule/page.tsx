@@ -12,6 +12,7 @@ interface Lesson {
   end: string;
   clientName: string;
   clientPhone: string;
+  smsConsent: boolean;
 }
 
 function formatTime12(dateStr: string): string {
@@ -51,9 +52,13 @@ export default function SchedulePage() {
   }, [fetchLessons]);
 
   async function handleCancel(lesson: Lesson) {
+    const smsNote = lesson.smsConsent
+      ? "This will delete the calendar event and notify the client via SMS."
+      : "This will delete the calendar event. (No SMS will be sent — client did not opt in.)";
+
     if (
       !confirm(
-        `Cancel ${lesson.clientName}'s lesson on ${formatDate(lesson.start)} at ${formatTime12(lesson.start)}?\n\nThis will delete the calendar event and notify the client via SMS.`
+        `Cancel ${lesson.clientName}'s lesson on ${formatDate(lesson.start)} at ${formatTime12(lesson.start)}?\n\n${smsNote}`
       )
     )
       return;
@@ -79,6 +84,7 @@ export default function SchedulePage() {
         clientPhone: lesson.clientPhone,
         date,
         time,
+        smsConsent: lesson.smsConsent,
       }),
     });
 

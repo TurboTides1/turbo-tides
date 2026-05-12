@@ -15,7 +15,8 @@ import { addMinutes, format, parse } from "date-fns";
  */
 export async function POST(request: NextRequest) {
   const body = await request.json();
-  const { instructor, date, time, name, phone } = body;
+  const { instructor, date, time, name, phone, smsConsent } = body;
+  const consented = smsConsent === true;
 
   // Validate required fields
   if (!instructor || !date || !time || !name || !phone) {
@@ -76,13 +77,17 @@ export async function POST(request: NextRequest) {
     const event = await createEvent(
       instructor,
       `Swim Lesson - ${name}`,
-      `Client: ${name}\nPhone: ${phone}`,
+      `Client: ${name}\nPhone: ${phone}\nSMS Consent: ${consented ? "yes" : "no"}`,
       startDT,
       endDT
     );
 
-    // Send SMS confirmation (skips gracefully if Twilio not configured)
-    await sendBookingConfirmation(phone, name, instructorData.name, date, time);
+    // Only send SMS confirmation if the client explicitly opted in. Consent
+    // is not a condition of booking - carriers reject toll-free verification
+    // when SMS opt-in is bundled with the purchase.
+    if (consented) {
+      await sendBookingConfirmation(phone, name, instructorData.name, date, time);
+    }
 
     return NextResponse.json({
       success: true,
