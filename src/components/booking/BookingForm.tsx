@@ -56,7 +56,7 @@ export default function BookingForm({
           <div><span className="font-medium">Instructor:</span> {inst?.name}</div>
           <div><span className="font-medium">Date:</span> {formattedDate}</div>
           <div><span className="font-medium">Time:</span> {formatTime12(time)} &ndash; {formatTime12(endTime)}</div>
-          <div><span className="font-medium">Price:</span> $25</div>
+          <div><span className="font-medium">Price:</span> $30</div>
         </div>
       </div>
 

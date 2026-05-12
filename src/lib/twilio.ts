@@ -59,7 +59,7 @@ export async function sendBookingConfirmation(
     `Hi ${clientName}! Your swim lesson with ${instructorName} is confirmed:\n\n` +
     `${formattedDate} at ${formattedTime}\n` +
     `Glenview Swim Club, 173 Paraiso Dr, Danville\n` +
-    `$25 due at the pool\n\n` +
+    `$30 due at the pool\n\n` +
     `See you there! - Turbo Tides`;
 
   await sendSMS(phone, body);

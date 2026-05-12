@@ -89,7 +89,7 @@ export default async function Image() {
               display: "flex",
             }}
           >
-            $25 / Lesson
+            $30 / Lesson
           </div>
           <div
             style={{

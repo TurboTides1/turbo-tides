@@ -16,7 +16,7 @@ export default function About() {
               <div className="text-gray-600 font-medium">Per Lesson</div>
             </div>
             <div className="bg-gray-50 rounded-2xl p-6">
-              <div className="text-3xl font-heading font-bold text-turquoise mb-2">$25</div>
+              <div className="text-3xl font-heading font-bold text-turquoise mb-2">$30</div>
               <div className="text-gray-600 font-medium">Per Session</div>
             </div>
             <div className="bg-gray-50 rounded-2xl p-6">

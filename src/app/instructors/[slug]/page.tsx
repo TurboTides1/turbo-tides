@@ -103,7 +103,7 @@ export default async function InstructorPage({ params }: Props) {
 
           {/* Pricing */}
           <div className="bg-gray-50 rounded-2xl p-8 mb-10">
-            <div className="text-3xl font-heading font-bold text-turquoise mb-1">$25</div>
+            <div className="text-3xl font-heading font-bold text-turquoise mb-1">$30</div>
             <div className="text-gray-600">per 20-minute private lesson</div>
             <div className="text-sm text-gray-500 mt-2">
               At Glenview Swim Club, Danville, CA

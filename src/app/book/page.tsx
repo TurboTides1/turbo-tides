@@ -83,7 +83,7 @@ export default function BookPage() {
           Book a Lesson
         </h1>
         <p className="text-gray-500 text-center mb-10">
-          $25 per 20-minute private lesson
+          $30 per 20-minute private lesson
         </p>
 
         {/* Progress steps */}

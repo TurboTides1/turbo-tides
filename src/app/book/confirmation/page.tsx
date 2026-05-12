@@ -69,13 +69,13 @@ function ConfirmationContent() {
             </div>
             <div className="border-t border-gray-100 pt-3 flex justify-between">
               <dt className="text-gray-500">Payment Due</dt>
-              <dd className="font-bold text-navy text-lg">$25</dd>
+              <dd className="font-bold text-navy text-lg">$30</dd>
             </div>
           </dl>
         </div>
 
         <div className="bg-amber-50 border border-amber-200 rounded-xl p-4 mb-8 text-sm text-amber-800">
-          Please bring <strong>$25</strong> (cash, Venmo, or Zelle) to your lesson. Payment is collected at the pool.
+          Please bring <strong>$30</strong> (cash, Venmo, or Zelle) to your lesson. Payment is collected at the pool.
         </div>
 
         <Link
