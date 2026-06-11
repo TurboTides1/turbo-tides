@@ -1,14 +1,14 @@
 import { NextRequest, NextResponse } from "next/server";
 import { auth } from "@/lib/auth";
 import { deleteEvent } from "@/lib/google-calendar";
-import { sendCancellationNotice } from "@/lib/twilio";
 import { getInstructor } from "@/lib/instructors";
 
 /**
  * POST /api/cancel
- * Body: { instructor, eventId, clientName, clientPhone, date, time }
+ * Body: { instructor, eventId }
  *
- * Admin-only. Deletes the calendar event and sends a cancellation SMS.
+ * Admin-only. Deletes the calendar event. Notifying the client is handled
+ * manually by the instructor (e.g., a personal phone call or text).
  */
 export async function POST(request: NextRequest) {
   const session = await auth();
@@ -17,7 +17,7 @@ export async function POST(request: NextRequest) {
   }
 
   const body = await request.json();
-  const { instructor, eventId, clientName, clientPhone, date, time, smsConsent } = body;
+  const { instructor, eventId } = body;
 
   if (!instructor || !eventId) {
     return NextResponse.json(
@@ -34,23 +34,7 @@ export async function POST(request: NextRequest) {
   }
 
   try {
-    // Delete the calendar event
     await deleteEvent(instructor, eventId);
-
-    // Only send cancellation SMS if the client opted in at booking time.
-    // Carrier rules require us to honor the consent state recorded with the
-    // booking - we can't text customers who didn't opt in.
-    if (smsConsent === true && clientPhone && clientName && date && time) {
-      const inst = getInstructor(instructor)!;
-      await sendCancellationNotice(
-        clientPhone,
-        clientName,
-        inst.name,
-        date,
-        time
-      );
-    }
-
     return NextResponse.json({ success: true });
   } catch (error) {
     console.error("Error cancelling booking:", error);

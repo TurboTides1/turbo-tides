@@ -3,7 +3,6 @@ import { getInstructor } from "@/lib/instructors";
 import { getWindowsForDate } from "@/lib/availability";
 import { getAvailableSlots } from "@/lib/slots";
 import { createEvent } from "@/lib/google-calendar";
-import { sendBookingConfirmation } from "@/lib/twilio";
 import { addMinutes, format, parse } from "date-fns";
 
 /**
@@ -11,12 +10,11 @@ import { addMinutes, format, parse } from "date-fns";
  * Body: { instructor, date, time, name, phone }
  *
  * Validates the slot, re-checks availability, creates a Google Calendar event.
- * SMS confirmation will be added in Milestone 6.
+ * Confirmation outreach is handled manually by the instructor (no automated SMS).
  */
 export async function POST(request: NextRequest) {
   const body = await request.json();
-  const { instructor, date, time, name, phone, smsConsent } = body;
-  const consented = smsConsent === true;
+  const { instructor, date, time, name, phone } = body;
 
   // Validate required fields
   if (!instructor || !date || !time || !name || !phone) {
@@ -77,17 +75,10 @@ export async function POST(request: NextRequest) {
     const event = await createEvent(
       instructor,
       `Swim Lesson - ${name}`,
-      `Client: ${name}\nPhone: ${phone}\nSMS Consent: ${consented ? "yes" : "no"}`,
+      `Client: ${name}\nPhone: ${phone}`,
       startDT,
       endDT
     );
-
-    // Only send SMS confirmation if the client explicitly opted in. Consent
-    // is not a condition of booking - carriers reject toll-free verification
-    // when SMS opt-in is bundled with the purchase.
-    if (consented) {
-      await sendBookingConfirmation(phone, name, instructorData.name, date, time);
-    }
 
     return NextResponse.json({
       success: true,

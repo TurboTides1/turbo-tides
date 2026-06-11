@@ -12,7 +12,6 @@ interface Lesson {
   end: string;
   clientName: string;
   clientPhone: string;
-  smsConsent: boolean;
 }
 
 function formatTime12(dateStr: string): string {
@@ -52,27 +51,14 @@ export default function SchedulePage() {
   }, [fetchLessons]);
 
   async function handleCancel(lesson: Lesson) {
-    const smsNote = lesson.smsConsent
-      ? "This will delete the calendar event and notify the client via SMS."
-      : "This will delete the calendar event. (No SMS will be sent — client did not opt in.)";
-
     if (
       !confirm(
-        `Cancel ${lesson.clientName}'s lesson on ${formatDate(lesson.start)} at ${formatTime12(lesson.start)}?\n\n${smsNote}`
+        `Cancel ${lesson.clientName}'s lesson on ${formatDate(lesson.start)} at ${formatTime12(lesson.start)}?\n\nThis will delete the calendar event. Remember to contact the client (${lesson.clientPhone || "no phone on file"}) directly.`
       )
     )
       return;
 
     setCancelling(lesson.id);
-
-    const startDT = new Date(lesson.start);
-    const date = `${startDT.getFullYear()}-${(startDT.getMonth() + 1)
-      .toString()
-      .padStart(2, "0")}-${startDT.getDate().toString().padStart(2, "0")}`;
-    const time = `${startDT.getHours().toString().padStart(2, "0")}:${startDT
-      .getMinutes()
-      .toString()
-      .padStart(2, "0")}`;
 
     await fetch("/api/cancel", {
       method: "POST",
@@ -80,11 +66,6 @@ export default function SchedulePage() {
       body: JSON.stringify({
         instructor: lesson.instructorSlug,
         eventId: lesson.id,
-        clientName: lesson.clientName,
-        clientPhone: lesson.clientPhone,
-        date,
-        time,
-        smsConsent: lesson.smsConsent,
       }),
     });
 

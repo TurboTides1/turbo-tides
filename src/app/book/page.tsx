@@ -44,14 +44,14 @@ export default function BookPage() {
     else if (step === "info") setStep("slot");
   }
 
-  async function handleBooking(name: string, phone: string, smsConsent: boolean) {
+  async function handleBooking(name: string, phone: string) {
     setError("");
     setSubmitting(true);
 
     const res = await fetch("/api/book", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ instructor, date, time, name, phone, smsConsent }),
+      body: JSON.stringify({ instructor, date, time, name, phone }),
     });
 
     const data = await res.json();
