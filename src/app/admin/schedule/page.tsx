@@ -12,6 +12,7 @@ interface Lesson {
   end: string;
   clientName: string;
   clientPhone: string;
+  smsConsent: boolean;
 }
 
 function formatTime12(dateStr: string): string {
@@ -135,7 +136,29 @@ export default function SchedulePage() {
                   <td className="px-5 py-3 text-sm">{formatDate(lesson.start)}</td>
                   <td className="px-5 py-3 text-sm">{formatTime12(lesson.start)}</td>
                   <td className="px-5 py-3 text-sm font-medium">{lesson.clientName}</td>
-                  <td className="px-5 py-3 text-sm text-gray-500">{lesson.clientPhone || "—"}</td>
+                  <td className="px-5 py-3 text-sm text-gray-500">
+                    {lesson.clientPhone ? (
+                      <>
+                        {lesson.clientPhone}
+                        <span
+                          className={`ml-2 inline-block text-xs font-medium px-2 py-0.5 rounded-full ${
+                            lesson.smsConsent
+                              ? "bg-turquoise/10 text-turquoise-dark"
+                              : "bg-gray-100 text-gray-500"
+                          }`}
+                          title={
+                            lesson.smsConsent
+                              ? "Client opted in to text messages"
+                              : "Client did not opt in to text - call only"
+                          }
+                        >
+                          {lesson.smsConsent ? "Text OK" : "Call only"}
+                        </span>
+                      </>
+                    ) : (
+                      "—"
+                    )}
+                  </td>
                   <td className="px-5 py-3 text-right">
                     <button
                       onClick={() => handleCancel(lesson)}

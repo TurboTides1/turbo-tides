@@ -7,14 +7,17 @@ import { addMinutes, format, parse } from "date-fns";
 
 /**
  * POST /api/book
- * Body: { instructor, date, time, name, phone }
+ * Body: { instructor, date, time, name, phone, smsConsent }
  *
  * Validates the slot, re-checks availability, creates a Google Calendar event.
- * Confirmation outreach is handled manually by the instructor (no automated SMS).
+ * The smsConsent flag is recorded on the event description so the instructor
+ * can see whether the client opted in to text-message communication when
+ * reaching out manually. No automated SMS is sent.
  */
 export async function POST(request: NextRequest) {
   const body = await request.json();
-  const { instructor, date, time, name, phone } = body;
+  const { instructor, date, time, name, phone, smsConsent } = body;
+  const consented = smsConsent === true;
 
   // Validate required fields
   if (!instructor || !date || !time || !name || !phone) {
@@ -75,7 +78,7 @@ export async function POST(request: NextRequest) {
     const event = await createEvent(
       instructor,
       `Swim Lesson - ${name}`,
-      `Client: ${name}\nPhone: ${phone}`,
+      `Client: ${name}\nPhone: ${phone}\nSMS Consent: ${consented ? "yes" : "no"}`,
       startDT,
       endDT
     );

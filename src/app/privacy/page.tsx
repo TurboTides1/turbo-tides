@@ -56,14 +56,50 @@ export default function PrivacyPolicy() {
 
         <section>
           <h2 className="text-xl font-heading font-semibold text-navy mb-3">
-            How we use your phone number
+            How we use your phone number (SMS)
           </h2>
-          <p className="text-gray-700 leading-relaxed">
-            Your phone number is used only so that your instructor can reach
-            out personally if there is a change to your lesson (for example, a
-            cancellation or rescheduling). We do not send automated text
-            messages or marketing communications, and we do not share your
-            phone number with third parties for marketing purposes.
+          <p className="text-gray-700 leading-relaxed mb-3">
+            Your instructor may use your mobile phone number to send you text
+            messages about your swim lesson bookings. Specifically, you may
+            receive:
+          </p>
+          <ul className="list-disc pl-6 text-gray-700 space-y-1">
+            <li>
+              A <strong>booking confirmation</strong> when your lesson is
+              scheduled
+            </li>
+            <li>
+              A <strong>cancellation notice</strong> if a lesson needs to be
+              cancelled or rescheduled
+            </li>
+          </ul>
+          <p className="text-gray-700 leading-relaxed mt-4">
+            Texts are sent personally by your instructor from a personal
+            mobile number — not from an automated messaging platform.
+            Frequency is low — typically one message per booking. Message and
+            data rates may apply based on your mobile plan. We do not use your
+            phone number for marketing, promotions, or advertising, and we
+            never share it with third parties for marketing purposes.
+          </p>
+          <p className="text-gray-700 leading-relaxed mt-4">
+            <strong>Consent is optional.</strong> You will only receive text
+            messages if you separately check the SMS consent box on the
+            booking form. <strong>Consent is not a condition of any
+            purchase.</strong> You can complete a booking without checking
+            the box, in which case your instructor will contact you by phone
+            call instead if needed. Your booking is not affected by your SMS
+            choice.
+          </p>
+          <p className="text-gray-700 leading-relaxed mt-4">
+            <strong>Opting out.</strong> You can opt out at any time by
+            replying <strong>STOP</strong> to any text message from us, or by
+            contacting us at the email below. After you opt out, you will not
+            receive further text messages from your instructor.
+          </p>
+          <p className="text-gray-700 leading-relaxed mt-4">
+            <strong>No sharing of opt-in data.</strong> We do not share
+            mobile opt-in consent or phone numbers with third parties or
+            affiliates for marketing purposes.
           </p>
         </section>
 
@@ -97,6 +133,7 @@ export default function PrivacyPolicy() {
             Your choices
           </h2>
           <ul className="list-disc pl-6 text-gray-700 space-y-1">
+            <li>You can opt out of SMS at any time by replying STOP.</li>
             <li>
               You can ask us to delete your booking record by contacting us.
             </li>

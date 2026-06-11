@@ -126,14 +126,20 @@ export async function deleteEvent(
 }
 
 /**
- * Parse client name and phone from a calendar event description.
- * Expected format: "Client: Name\nPhone: +1234567890"
+ * Parse client name, phone, and SMS consent from a calendar event description.
+ * Expected format: "Client: Name\nPhone: +1234567890\nSMS Consent: yes"
+ *
+ * Older events (before consent tracking) won't have the consent line; we treat
+ * missing as `false` so instructors default to calling, not texting.
  */
 export function parseClientInfo(description: string | null | undefined): {
   name: string;
   phone: string;
+  smsConsent: boolean;
 } {
   const name = description?.match(/Client:\s*(.+)/)?.[1]?.trim() ?? "Unknown";
   const phone = description?.match(/Phone:\s*(.+)/)?.[1]?.trim() ?? "";
-  return { name, phone };
+  const consentMatch = description?.match(/SMS Consent:\s*(yes|no)/i)?.[1];
+  const smsConsent = consentMatch?.toLowerCase() === "yes";
+  return { name, phone, smsConsent };
 }

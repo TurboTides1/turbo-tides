@@ -10,7 +10,7 @@ interface Props {
   time: string;
   endTime: string;
   submitting: boolean;
-  onSubmit: (name: string, phone: string) => void;
+  onSubmit: (name: string, phone: string, smsConsent: boolean) => void;
 }
 
 function formatTime12(time24: string): string {
@@ -31,6 +31,7 @@ export default function BookingForm({
   const inst = getInstructor(instructor);
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
+  const [smsConsent, setSmsConsent] = useState(false);
 
   const formattedDate = new Date(date + "T12:00:00").toLocaleDateString(
     "en-US",
@@ -39,7 +40,7 @@ export default function BookingForm({
 
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
-    onSubmit(name.trim(), phone.trim());
+    onSubmit(name.trim(), phone.trim(), smsConsent);
   }
 
   return (
@@ -88,9 +89,26 @@ export default function BookingForm({
             placeholder="(555) 123-4567"
             className="w-full px-4 py-2.5 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-turquoise/50 focus:border-turquoise"
           />
-          <p className="text-xs text-gray-400 mt-1">
-            We&apos;ll reach out by phone if anything changes with your lesson.
-          </p>
+        </div>
+
+        <div className="flex items-start gap-3 bg-gray-50 border border-gray-200 rounded-lg p-4">
+          <input
+            id="sms-consent"
+            type="checkbox"
+            checked={smsConsent}
+            onChange={(e) => setSmsConsent(e.target.checked)}
+            className="mt-1 h-4 w-4 rounded border-gray-300 text-turquoise focus:ring-turquoise"
+          />
+          <label htmlFor="sms-consent" className="text-xs text-gray-600 leading-relaxed">
+            <span className="font-medium text-gray-700">Optional:</span> I agree
+            that my instructor may text me about my swim lesson bookings
+            (confirmation and cancellation notices only, roughly one message
+            per booking).{" "}
+            <span className="font-medium text-gray-700">
+              Consent is not a condition of any purchase.
+            </span>{" "}
+            Message and data rates may apply. Reply STOP to opt out.
+          </label>
         </div>
 
         <button

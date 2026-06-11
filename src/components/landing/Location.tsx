@@ -7,7 +7,8 @@ export default function Location() {
             Where to Find Us
           </h2>
           <p className="text-lg text-gray-600">
-            Lessons take place at Glenview Swim Club in Danville, CA.
+            Serving the Greenbrook and Sycamore neighborhoods of Danville, CA.
+            Lessons take place at Glenview Swim Club.
           </p>
         </div>
 

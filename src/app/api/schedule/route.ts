@@ -26,7 +26,7 @@ export async function GET() {
       if (!event.start?.dateTime) continue;
       if (!event.summary?.toLowerCase().includes("swim lesson")) continue;
 
-      const { name, phone } = parseClientInfo(event.description);
+      const { name, phone, smsConsent } = parseClientInfo(event.description);
 
       allLessons.push({
         id: event.id ?? "",
@@ -37,6 +37,7 @@ export async function GET() {
         end: event.end?.dateTime ?? "",
         clientName: name,
         clientPhone: phone,
+        smsConsent,
       });
     }
   }
