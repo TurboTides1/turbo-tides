@@ -22,7 +22,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
   return {
     title: `${instructor.name} — Swim Instructor`,
-    description: `Book a private swim lesson with ${instructor.name} at Glenview Swim Club in Danville, CA. ${instructor.specialties.join(", ")}.`,
+    description: `Book a private swim lesson with ${instructor.name} in Danville, CA. ${instructor.specialties.join(", ")}.`,
     openGraph: {
       title: `${instructor.name} — Turbo Tides Swim Instructor`,
       description: `Private swim lessons with ${instructor.name}. Specialties: ${instructor.specialties.join(", ")}.`,
@@ -106,7 +106,7 @@ export default async function InstructorPage({ params }: Props) {
             <div className="text-3xl font-heading font-bold text-turquoise mb-1">$30</div>
             <div className="text-gray-600">per 20-minute private lesson</div>
             <div className="text-sm text-gray-500 mt-2">
-              At Glenview Swim Club, Danville, CA
+              In the Greenbrook & Sycamore area of Danville, CA
             </div>
           </div>
 

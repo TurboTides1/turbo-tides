@@ -50,11 +50,11 @@ export default function Footer() {
           {/* Contact */}
           <div>
             <h4 className="font-heading font-semibold mb-3">Location</h4>
-            <address className="text-sm text-gray-300 not-italic leading-relaxed">
-              Glenview Swim Club<br />
-              173 Paraiso Dr<br />
-              Danville, CA 94526
-            </address>
+            <p className="text-sm text-gray-300 leading-relaxed">
+              Greenbrook and Sycamore<br />
+              neighborhoods of<br />
+              Danville, CA
+            </p>
           </div>
         </div>
 

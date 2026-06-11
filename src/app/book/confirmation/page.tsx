@@ -65,7 +65,7 @@ function ConfirmationContent() {
             </div>
             <div className="flex justify-between">
               <dt className="text-gray-500">Location</dt>
-              <dd className="font-medium text-navy">Glenview Swim Club</dd>
+              <dd className="font-medium text-navy">Shared after confirmation</dd>
             </div>
             <div className="border-t border-gray-100 pt-3 flex justify-between">
               <dt className="text-gray-500">Payment Due</dt>

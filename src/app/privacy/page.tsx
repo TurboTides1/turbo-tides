@@ -23,9 +23,9 @@ export default function PrivacyPolicy() {
             Who we are
           </h2>
           <p className="text-gray-700 leading-relaxed">
-            Turbo Tides is a small family-run swim lesson business operating at
-            Glenview Swim Club in Danville, California. This policy explains
-            what information we collect when you book a lesson through{" "}
+            Turbo Tides is a small family-run swim lesson business based in
+            Danville, California. This policy explains what information we
+            collect when you book a lesson through{" "}
             <Link href="/" className="text-turquoise hover:underline">
               turbotides.us
             </Link>

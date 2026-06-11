@@ -21,12 +21,12 @@ export const metadata: Metadata = {
     template: "%s | Turbo Tides",
   },
   description:
-    "Private swim lessons for young swimmers in Danville, CA. Learn all four strokes, dives, turns, and fundamentals with experienced instructors Kayla and Jack. $30 per 20-minute lesson at Glenview Swim Club.",
+    "Private swim lessons for young swimmers in the Greenbrook and Sycamore neighborhoods of Danville, CA. Learn all four strokes, dives, turns, and fundamentals with experienced instructors Kayla and Jack. $30 per 20-minute lesson.",
   metadataBase: new URL("https://turbotides.us"),
   openGraph: {
     title: "Turbo Tides | Swim Lessons in Danville, CA",
     description:
-      "Private swim lessons for young swimmers. Learn strokes, dives, turns & fundamentals. $30/lesson at Glenview Swim Club.",
+      "Private swim lessons in Danville, CA. Learn strokes, dives, turns & fundamentals. $30 per 20-minute lesson.",
     url: "https://turbotides.us",
     siteName: "Turbo Tides",
     locale: "en_US",
@@ -36,7 +36,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Turbo Tides | Swim Lessons in Danville, CA",
     description:
-      "Private swim lessons for young swimmers. Learn strokes, dives, turns & fundamentals. $30/lesson at Glenview Swim Club.",
+      "Private swim lessons in Danville, CA. Learn strokes, dives, turns & fundamentals. $30 per 20-minute lesson.",
   },
   robots: {
     index: true,
